@@ -3,7 +3,7 @@ from errors.buyer_not_found import BuyerNotFound
 import sqlite3
 class BuyerRepository:
     def __init__(self) -> None:
-        self.connection = sqlite3.connect("database/messages.db")
+        self.connection = sqlite3.connect("database/buyers.db")
         self.cur = self.connection.cursor()
         self.cur.execute("CREATE TABLE IF NOT EXISTS buyers (id INTEGER Primary key , name VARCHAR(2000), email VARCHAR(2000), ssn VARCHAR(2000), phoneNumber VARCHAR(2000));")
         
