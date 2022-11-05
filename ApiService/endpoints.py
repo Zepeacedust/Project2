@@ -11,7 +11,7 @@ async def get_order(id: int,response:Response):
     return return_data.json()
 
 
-@router.POST('api/orders')
+@router.post('api/orders')
 async def set_order(orderdata,response:Response):
     return_data = requests.post('orderservice/orders', json=orderdata).json()
     response.status_code = return_data.status_code
@@ -25,7 +25,7 @@ async def get_merchant(id:int,response:Response):
     return return_data.json()
 
 
-@router.POST('api/merchants')
+@router.post('api/merchants')
 async def set_merchant(merchantdata,response:Response):
     return_data = requests.post('merchantservice/merchants', json=merchantdata).json()
     response.status_code = return_data.status_code
@@ -40,7 +40,7 @@ async def get_buyer(id:int, response:Response):
 
 
 
-@router.POST('api/buyers')
+@router.post('api/buyers')
 async def set_buyer(buyerdata, response: Response):
     return_data = requests.post('buyerservice/buyers', json=buyerdata)
     response.status_code = return_data.status_code
@@ -54,7 +54,7 @@ async def get_product(id: int, response: Response):
     return return_data.json()
 
 
-@router.POST('api/products')
+@router.post('api/products')
 async def set_product(productdata, response: Response):
     return_data = requests.post('productservice/products', json=productdata)
     response.status_code = return_data.status_code
