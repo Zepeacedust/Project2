@@ -8,7 +8,7 @@ services:
 
   buyer-service:
     build: BuyerService
-    image: BuyerService
+    image: buyerservice
     volumes:
       - type: volume
         source: database
@@ -17,12 +17,16 @@ services:
     image: rabbitmq
 
   email-service:
-    build: EmailService
+    biuld: EmailService
     image: emailservice
 
   inventory-service:
     build: InventoryService
     image: inventoryservice
+    volumes:
+      - type: volume
+        source: database
+        target: /database
 
   merchant-service:
     build: MerchantService
@@ -35,10 +39,18 @@ services:
   order-service:
     build: OrderService
     image: orderservice
+    volumes:
+      - type: volume
+        source: database
+        target: /database
 
   payment-service:
     build: PaymentService
     image: paymentservice
+    volumes:
+      - type: volume
+        source: database
+        target: /database
 
 volumes:
   database:
