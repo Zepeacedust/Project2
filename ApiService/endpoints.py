@@ -1,29 +1,61 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Response
 import requests
+
 router = APIRouter()
 
 
 @router.get('api/orders/{id}')
-async def get_order(id:int):
-    return requests.get(f"orderservice/{id}")
+async def get_order(id: int,response:Response):
+    return_data = requests.get(f"orderservice/{id}").json()
+    response.status_code = return_data.status_code
+    return return_data.json()
+
+
 @router.POST('api/orders')
-async def set_order(orderdata):
-    return requests.post('productservice', json=orderdata)
+async def set_order(orderdata,response:Response):
+    return_data = requests.post('productservice', json=orderdata).json()
+    response.status_code = return_data.status_code
+    return return_data.json()
+
+
 @router.get('api/merchants/{id}')
-async def get_merchant():
-    return requests.get(f"merchantservice/{id}")
+async def get_merchant(id:int,response:Response):
+    return_data = requests.get(f"merchantservice/{id}").json()
+    response.status_code = return_data.status_code
+    return return_data.json()
+
+
 @router.POST('api/merchants')
-async def set_merchant(merchantdata):
-    return requests.post('productservice', json=merchantdata)
+async def set_merchant(merchantdata,response:Response):
+    return_data = requests.post('productservice', json=merchantdata).json()
+    response.status_code = return_data.status_code
+    return return_data.json()
+
+
 @router.get('api/buyers/{id}')
-async def get_buyer():
-    return requests.get(f"buyerservice/{id}")
+async def get_buyer(id:int, response:Response):
+    return_data = requests.get(f"buyerservice/{id}").json()
+    response.status_code = return_data.status_code
+    return return_data.json()
+
+
+
 @router.POST('api/buyers')
-async def set_buyer(buyerdata):
-    return requests.post('productservice', json=buyerdata)
+async def set_buyer(buyerdata, response: Response):
+    return_data = requests.post('productservice', json=buyerdata)
+    response.status_code = return_data.status_code
+    return return_data.json()
+
+
 @router.get('api/products/{id}')
-async def get_product(id:int):
-    return requests.get(f"productservice/{id}")
+async def get_product(id: int, response: Response):
+    return_data = requests.get(f"productservice/{id}")
+    response.status_code = return_data.status_code
+    return return_data.json()
+
+
 @router.POST('api/products')
-async def set_product(productdata):
-    return requests.post('productservice', json=productdata)
+async def set_product(productdata, response: Response):
+    return_data = requests.post('productservice', json=productdata)
+    response.status_code = return_data.status_code
+    return return_data.json()
