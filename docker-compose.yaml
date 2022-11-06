@@ -13,8 +13,6 @@ services:
       - type: volume
         source: database
         target: /database
-  rabbitmq:
-    image: rabbitmq
 
   email-service:
     biuld: EmailService
@@ -51,6 +49,9 @@ services:
       - type: volume
         source: database
         target: /database
+
+  rabbitmq:
+    image: rabbitmq
 
 volumes:
   database:
