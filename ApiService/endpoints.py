@@ -2,7 +2,9 @@ from fastapi import APIRouter, Depends, Response
 import requests
 
 from models.merchantmodel import MerchantModel
+from models.productmodel import ProductModel
 from models.buyermodel import BuyerModel
+from models.ordermodel import OrderModel
 router = APIRouter()
 
 
@@ -14,8 +16,8 @@ async def get_order(id: int,response:Response):
 
 
 @router.post('/api/orders')
-async def set_order(orderdata,response:Response):
-    return_data = requests.post('http://order-service:8000/orders', json=orderdata)
+async def set_order(orderdata:OrderModel,response:Response):
+    return_data = requests.post('http://order-service:8000/orders', json=orderdata.dict())
     response.status_code = return_data.status_code
     return return_data.json()
 
@@ -51,13 +53,13 @@ async def set_buyer(buyerdata:BuyerModel, response: Response):
 
 @router.get('/api/products/{id}')
 async def get_product(id: int, response: Response):
-    return_data = requests.get(f"http://product-service:8000/products/{id}")
+    return_data = requests.get(f"http://inventory-service:8000/products/{id}")
     response.status_code = return_data.status_code
     return return_data.json()
 
 
 @router.post('/api/products')
-async def set_product(productdata, response: Response):
-    return_data = requests.post('http://product-service:8000/products', json=productdata.dict())
+async def set_product(productdata:ProductModel, response: Response):
+    return_data = requests.post('http://inventory-service:8000/products', json=productdata.dict())
     response.status_code = return_data.status_code
     return return_data.json()

@@ -15,7 +15,7 @@ services:
         target: /database
 
   email-service:
-    biuld: EmailService
+    build: EmailService
     image: emailservice
 
   inventory-service:
