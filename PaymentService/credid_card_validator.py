@@ -7,9 +7,7 @@ def LuhnAlgorithm(cardNumber):
     cardNumberList = []
     counter = 0
     for x in range(lenNum):
-        if flag:
-            cardNumberList.append(int(cardNumberCalc[x])*1)
-        else:
+        if flag == False:
             cardNumberList.append(int(cardNumberCalc[x])*2)
         flag = not flag
     for x in cardNumberList:
