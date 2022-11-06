@@ -5,10 +5,10 @@ from models.ordermodel import OrderModel
 class EventSender:
     def __init__(self) -> None:
         self.channel = self.__get_connection()
-    def send_message(self, order:OrderModel, productData):
+    def send_event(self, order:OrderModel, productData):
         self.channel.basic_publish(exchange='orders',
                                    routing_key='orders.created',
-                                   body={"order":order.dict(), "product":productData})
+                                   body=str({"order":order.dict(), "product":productData}))
     @retry(pika.exceptions.AMQPConnectionError, delay=5, jitter=(1, 3))
     def __get_connection(self):
         print("getting connection")
