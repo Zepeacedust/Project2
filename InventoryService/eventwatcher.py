@@ -11,6 +11,8 @@ class EventWatcher:
         print(body)
     
     def start(self):
+        print("we eating good tonight")
+        print(type(self))
         self.channel.basic_consume(queue='inventory', on_message_callback=self.callback, auto_ack=True)
         self.channel.start_consuming()
         
@@ -18,11 +20,13 @@ class EventWatcher:
     @retry(pika.exceptions.AMQPConnectionError, delay=5, jitter=(1, 3))
     def __get_connection(self):
         print("Attempting to get connection...")
+        print(self)
         connection = pika.BlockingConnection(pika.ConnectionParameters('rabbitmq'))
         channel = connection.channel()
         channel.exchange_declare(exchange="payment")
         channel.queue_declare(queue='inventory')
-        channel.queue_bind(queue="inventory",exchange="payment")
+        channel.queue_bind(queue="inventory",exchange="payment",routing_key="payment.success")
+        channel.queue_bind(queue="inventory",exchange="payment",routing_key="payment.failure")
         print("got connection!")
         return channel
     
