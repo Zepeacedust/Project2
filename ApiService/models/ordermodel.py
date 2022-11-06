@@ -12,4 +12,10 @@ class OrderModel:
     discount: float
 
     def dict(self):
-        return {k: str(v) for k, v in asdict(self).items()}
+        return {
+            "productId":self.productId,
+            "merchantId":self.merchantId,
+            "buyerId":self.buyerId,
+            "creditCard":self.creditCard.dict(),
+            "discount": self.discount
+        }

@@ -47,6 +47,3 @@ def creditCardValidation(cartdNumber,monthExpirationDate,yearExpirationDate,CVCn
                 if CVC(CVCnumber):
                     return True
     return False
-
-
-LuhnAlgorithm("79927398713")
