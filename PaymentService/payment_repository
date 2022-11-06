@@ -1,0 +1,25 @@
+from models.credidcardmodel import CreditCardModel
+from errors.credit_card_not_found import CreditCardNotFound
+import sqlite3
+class CreditRepository:
+    def __init__(self) -> None:
+        self.connection = sqlite3.connect("database/creditCard.db")
+        self.cur = self.connection.cursor()
+        self.cur.execute("CREATE TABLE IF NOT EXISTS creditCard (id INTEGER Primary key , name VARCHAR(2000), email VARCHAR(2000), ssn VARCHAR(2000), phoneNumber VARCHAR(2000));")
+        
+    def save_credit_card(self, creditCard:CreditCardModel) -> int:
+        self.cur.execute(f"INSERT INTO creditCard(name, email, ssn, phoneNumber) VALUES ('{buyer.name}', '{buyer.email}', '{buyer.ssn}', '{buyer.phoneNumber}');")
+        self.connection.commit()
+        result = self.cur.execute("SELECT MAX(id) from creditCard;")
+        return result.fetchone()[0]
+
+    def get_credit_card(self, id: int) -> CreditCardModel:
+        # TODO: return message with id from storage
+        result = self.cur.execute(f"select name,ssn,email,phoneNumber from creditCard where id={id};")
+        data = result.fetchone()
+        if data == None:
+            raise CreditCardNotFound()
+        else:
+            return CreditCardModel(*data)
+    def __del__(self):
+        self.connection.commit()
