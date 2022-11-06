@@ -16,6 +16,6 @@ class OrderModel:
             "productId":self.productId,
             "merchantId":self.merchantId,
             "buyerId":self.buyerId,
-            "creditCard":self.creditCard.dict(),
+            "creditCard":str(self.creditCard.dict()),
             "discount": self.discount
         }

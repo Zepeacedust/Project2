@@ -6,11 +6,11 @@ import json
 class EventSender:
     def __init__(self) -> None:
         self.channel = self.__get_connection()
-    def send_event(self, order:OrderModel, productData):
-        print("sending success event")
+    def send_event(self, order:OrderModel, productData,orderId):
+        print("sending success event",flush=True)
         self.channel.basic_publish(exchange='orders',
                                    routing_key='orders.created',
-                                   body=json.dumps({"order":order.dict(), "product":productData}))
+                                   body=json.dumps({"order":order.dict(), "product":productData,"id":orderId}))
     @retry(pika.exceptions.AMQPConnectionError, delay=5, jitter=(1, 3))
     def __get_connection(self):
         print("getting connection")

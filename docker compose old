@@ -1,0 +1,67 @@
+version: "3.8"
+services:
+  api-service:
+    build: ApiService
+    image: apiservice
+    ports:
+      - 8000:8000
+
+  buyer-service:
+    build: BuyerService
+    image: buyerservice
+    volumes:
+      - type: volume
+        source: database
+        target: /database
+
+  email-service:
+    build: EmailService
+    image: emailservice
+    depends_on:
+      - rabbitmq
+
+  inventory-service:
+    build: InventoryService
+    image: inventoryservice
+    depends_on:
+      - rabbitmq
+    volumes:
+      - type: volume
+        source: database
+        target: /database
+
+  merchant-service:
+    build: MerchantService
+    image: merchantservice
+    volumes:
+      - type: volume
+        source: database
+        target: /database
+
+  order-service:
+    build: OrderService
+    image: orderservice
+    depends_on:
+      - rabbitmq
+    ports:
+      - 8001:8000
+    volumes:
+      - type: volume
+        source: database
+        target: /database
+
+  payment-service:
+    build: PaymentService
+    image: paymentservice
+    depends_on:
+      - rabbitmq
+    volumes:
+      - type: volume
+        source: database
+        target: /database
+
+  rabbitmq:
+    image: rabbitmq
+
+volumes:
+  database:

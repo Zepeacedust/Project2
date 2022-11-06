@@ -8,5 +8,5 @@ class CreditRepository:
         self.cur.execute("CREATE TABLE IF NOT EXISTS creditCard (id INTEGER Primary key, orderId int, success boolean);")
         
     def save_credit_card(self, orderId:int, success:bool) -> int:
-        self.cur.execute(f"INSERT INTO creditCard(orderId) VALUES ({orderId}, {success});")
+        self.cur.execute(f"INSERT INTO creditCard(orderId, success) VALUES ({orderId}, {success});")
         self.connection.commit()

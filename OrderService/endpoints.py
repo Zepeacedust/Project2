@@ -57,5 +57,6 @@ async def set_order(orderdata:OrderModel, response:Response, order_repository = 
     
     
     requests.post(f"http://inventory-service:8000/products/reserve",json={"productId":orderdata.productId})
-    event_sender.send_event(orderdata, product_data)
-    return order_repository.save_order(orderdata)
+    order_id = order_repository.save_order(orderdata)
+    event_sender.send_event(orderdata, product_data,order_id)
+    return order_id

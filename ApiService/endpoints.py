@@ -7,7 +7,7 @@ from models.buyermodel import BuyerModel
 from models.ordermodel import OrderModel
 router = APIRouter()
 
-
+import json
 @router.get('/api/orders/{id}')
 async def get_order(id: int,response:Response):
     return_data = requests.get(f"http://order-service:8000/orders/{id}")
@@ -17,7 +17,8 @@ async def get_order(id: int,response:Response):
 
 @router.post('/api/orders')
 async def set_order(orderdata:OrderModel,response:Response):
-    return_data = requests.post('http://order-service:8000/orders', json=orderdata.dict())
+    print(json.dumps(orderdata.dict()),flush=True)
+    return_data = requests.post('http://order-service:8000/orders', json=orderdata)
     response.status_code = return_data.status_code
     return return_data.json()
 
@@ -60,6 +61,6 @@ async def get_product(id: int, response: Response):
 
 @router.post('/api/products')
 async def set_product(productdata:ProductModel, response: Response):
-    return_data = requests.post('http://inventory-service:8000/products', json=productdata.dict())
+    return_data = requests.post('http://inventory-service:8000/products', json=str(productdata.dict()))
     response.status_code = return_data.status_code
     return return_data.json()
