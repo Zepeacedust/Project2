@@ -10,6 +10,7 @@ def get_connection():
     channel.queue_bind(queue="orders", exchange="orders" ,routing_key="orders.created")
     return channel
 def callback(ch, method, properties, body):
+    print("recieved message")
     print(body)
 channel = get_connection()
 

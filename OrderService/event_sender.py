@@ -6,6 +6,7 @@ class EventSender:
     def __init__(self) -> None:
         self.channel = self.__get_connection()
     def send_event(self, order:OrderModel, productData):
+        print("sending success event")
         self.channel.basic_publish(exchange='orders',
                                    routing_key='orders.created',
                                    body=str({"order":order.dict(), "product":productData}))

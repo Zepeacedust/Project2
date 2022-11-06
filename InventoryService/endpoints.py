@@ -27,7 +27,7 @@ async def get_product(id:int, product_repository = Depends(Provide[Container.pro
 async def set_product(productdata:ProductModel, product_repository = Depends(Provide[Container.product_repository_provider])):
     return product_repository.save_product(productdata)
 
-@router.post('/products/reserve', status_code=201)
+@router.post('/products/reserve', status_code=200)
 @inject
 async def reserve_product(reserve_request:ReserveRequestModel, product_repository = Depends(Provide[Container.product_repository_provider])):
     return product_repository.update_product(reserve_request.productId,1,0)

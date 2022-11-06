@@ -19,7 +19,6 @@ async def get_order(id: int,response:Response):
 async def set_order(orderdata:OrderModel,response:Response):
     return_data = requests.post('http://order-service:8000/orders', json=orderdata.dict())
     response.status_code = return_data.status_code
-    print(orderdata.dict())
     return return_data.json()
 
 
