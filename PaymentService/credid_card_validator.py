@@ -7,7 +7,9 @@ def LuhnAlgorithm(cardNumber):
     cardNumberList = []
     counter = 0
     for x in range(lenNum):
-        if flag == False:
+        if flag:
+            cardNumberList.append(int(cardNumberCalc[x]))
+        else:
             cardNumberList.append(int(cardNumberCalc[x])*2)
         flag = not flag
     for x in cardNumberList:
@@ -45,3 +47,6 @@ def creditCardValidation(cartdNumber,monthExpirationDate,yearExpirationDate,CVCn
                 if CVC(CVCnumber):
                     return True
     return False
+
+
+LuhnAlgorithm("79927398713")
