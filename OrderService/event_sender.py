@@ -13,6 +13,7 @@ class EventSender:
     def __get_connection(self):
         print("getting connection")
         connection = pika.BlockingConnection(pika.ConnectionParameters('rabbitmq'))
+        channel=connection.channel()
         channel.exchange_declare(exchange='orders', exchange_type='direct')
         channel = connection.channel()
         channel.queue_declare(queue='order_created')
