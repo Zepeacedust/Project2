@@ -3,9 +3,6 @@ services:
   api-service:
     build: ApiService
     image: apiservice
-    ports:
-      - 8000:8000
-
   buyer-service:
     build: BuyerService
     image: buyerservice
@@ -43,6 +40,8 @@ services:
     image: orderservice
     depends_on:
       - rabbitmq
+    ports:
+      - 8001:8000
     volumes:
       - type: volume
         source: database
