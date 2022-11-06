@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Response
+from fastapi import APIRouter, Depends, Response, HTTPException
 import requests
 from models.merchantmodel import MerchantModel
 from dependency_injector.wiring import inject, Provide
@@ -9,16 +9,14 @@ router = APIRouter()
 
 
 
-@router.get('/merchants/{id}')
+@router.get('/merchants/{id}',status_code=200)
 @inject
-async def get_merchant(id:int, response:Response, merchant_repository = Depends(Provide[Container.merchant_repository_provider])):
+async def get_merchant(id:int, merchant_repository = Depends(Provide[Container.merchant_repository_provider])):
     merchant = None
     try:
         merchant = merchant_repository.get_merchant(id)
     except MerchantNotFound:
-        response.status_code = 404
-        return
-    response.status_code = 201
+        raise HTTPException(status_code=404, detail="Merchant does not exist")
     return merchant
 
 

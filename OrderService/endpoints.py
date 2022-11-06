@@ -15,7 +15,7 @@ async def get_order(id:int, response:Response, order_repository = Depends(Provid
     try:
         order = order_repository.get_order(id)
     except OrderNotFound:
-        raise HTTPException(status_code=404, detail="Merchant does not exist")
+        raise HTTPException(status_code=404, detail="Order does not exist")
     response.status_code = 201
     product = requests.get(f"http://product-service:8000/merchants/{id}").json()
     return {
