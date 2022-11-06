@@ -6,6 +6,8 @@ services:
   buyer-service:
     build: BuyerService
     image: buyerservice
+    ports:
+      - 8002:8000
     volumes:
       - type: volume
         source: database
@@ -22,6 +24,8 @@ services:
     image: inventoryservice
     depends_on:
       - rabbitmq
+    ports:
+      - 8003:8000
     volumes:
       - type: volume
         source: database
@@ -30,6 +34,8 @@ services:
   merchant-service:
     build: MerchantService
     image: merchantservice
+    ports:
+      - 8001:8000
     volumes:
       - type: volume
         source: database
@@ -41,7 +47,7 @@ services:
     depends_on:
       - rabbitmq
     ports:
-      - 8001:8000
+      - 8000:8000
     volumes:
       - type: volume
         source: database
