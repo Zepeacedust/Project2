@@ -17,10 +17,14 @@ services:
   email-service:
     build: EmailService
     image: emailservice
+    depends_on:
+      - rabbitmq
 
   inventory-service:
     build: InventoryService
     image: inventoryservice
+    depends_on:
+      - rabbitmq
     volumes:
       - type: volume
         source: database
@@ -37,6 +41,8 @@ services:
   order-service:
     build: OrderService
     image: orderservice
+    depends_on:
+      - rabbitmq
     volumes:
       - type: volume
         source: database
@@ -45,6 +51,8 @@ services:
   payment-service:
     build: PaymentService
     image: paymentservice
+    depends_on:
+      - rabbitmq
     volumes:
       - type: volume
         source: database
