@@ -13,9 +13,9 @@ class OrderModel:
 
     def dict(self):
         return {
-            "productId":str(self.productId),
-            "merchantId":str(self.merchantId),
-            "buyerId":str(self.buyerId),
-            "creditCard":str(self.creditCard.dict()),
-            "discount": str(self.discount)
+            "productId":self.productId,
+            "merchantId":self.merchantId,
+            "buyerId":self.buyerId,
+            "creditCard":self.creditCard.dict(),
+            "discount": self.discount
         }

@@ -9,4 +9,4 @@ class MerchantModel:
     allowsDiscount:bool
 
     def dict(self):
-        return {k: str(v) for k, v in asdict(self).items()}
+        return {k: v for k, v in asdict(self).items()}

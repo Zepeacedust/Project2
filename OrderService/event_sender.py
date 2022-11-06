@@ -1,6 +1,7 @@
 import pika
 from retry import retry
 from models.ordermodel import OrderModel
+import json
 # ekki thread safe en það ætti að vikra í svona litlu kerfi
 class EventSender:
     def __init__(self) -> None:
@@ -9,7 +10,7 @@ class EventSender:
         print("sending success event")
         self.channel.basic_publish(exchange='orders',
                                    routing_key='orders.created',
-                                   body=str({"order":order.dict(), "product":productData}))
+                                   body=json.dumps({"order":order.dict(), "product":productData}))
     @retry(pika.exceptions.AMQPConnectionError, delay=5, jitter=(1, 3))
     def __get_connection(self):
         print("getting connection")
